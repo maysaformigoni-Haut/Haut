@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planilha Gratuita de Controle de Gastos - Haut Consórcios</title>
+    <title>Planilha Gratuita de Controle Financeiro - Haut Consórcios</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -224,6 +224,51 @@
             padding-right: 40px;
         }
 
+        .persona-toggle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .persona-card {
+            position: relative;
+            cursor: pointer;
+            display: block;
+        }
+
+        .persona-card input {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+        }
+
+        .persona-card-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            padding: 16px 12px;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy);
+            transition: all 0.2s;
+        }
+
+        .persona-card input:checked + .persona-card-inner {
+            border-color: var(--green-dark);
+            background: rgba(175, 208, 110, 0.15);
+            color: var(--green-dark);
+        }
+
+        .persona-card input:focus-visible + .persona-card-inner {
+            outline: 2px solid var(--blue-accent);
+            outline-offset: 2px;
+        }
+
         .submit-btn {
             width: 100%;
             padding: 14px 20px;
@@ -439,11 +484,11 @@
 
         <div class="container">
             <img class="logo-img" src="assets/logo-haut-branco.png" alt="Haut Consórcios">
-            <h1>Organize suas finanças agora</h1>
-            <p class="subtitle">Baixe gratuitamente a planilha de controle de gastos da Haut e coloque em ordem a rotina financeira da sua empresa e da sua vida pessoal.</p>
+            <h1>Entenda para onde seu dinheiro está indo. E comece a se organizar.</h1>
+            <p class="subtitle">Baixe gratuitamente a planilha de controle financeiro da Haut para organizar receitas, despesas e metas da sua vida pessoal ou da sua empresa.</p>
             <div class="badge-row">
                 <span class="badge">100% gratuita</span>
-                <span class="badge">Pessoa Física e Jurídica</span>
+                <span class="badge">Para você ou sua empresa</span>
                 <span class="badge">Pronta para usar</span>
             </div>
         </div>
@@ -457,32 +502,32 @@
                 <div class="benefit-item">
                     <div class="benefit-icon">✓</div>
                     <div class="benefit-text">
-                        <h3>Organize todos os gastos</h3>
-                        <p>Categorize as despesas da sua empresa ou da sua casa e entenda para onde vai o dinheiro</p>
+                        <h3>Tenha todas as entradas e despesas em um só lugar</h3>
+                        <p>Registre o que entra, o que sai e entenda com mais clareza como seu dinheiro está sendo utilizado.</p>
                     </div>
                 </div>
 
                 <div class="benefit-item">
                     <div class="benefit-icon">✓</div>
                     <div class="benefit-text">
-                        <h3>Visualize em gráficos</h3>
-                        <p>Veja sua situação financeira de forma clara e visual</p>
+                        <h3>Saiba para onde seu dinheiro está indo</h3>
+                        <p>Acompanhe suas informações de forma visual e identifique os gastos que mais pesam no seu orçamento.</p>
                     </div>
                 </div>
 
                 <div class="benefit-item">
                     <div class="benefit-icon">✓</div>
                     <div class="benefit-text">
-                        <h3>Planeje o futuro</h3>
-                        <p>Identifique oportunidades de economia e crie metas financeiras realistas</p>
+                        <h3>Defina metas e se planeje melhor</h3>
+                        <p>Organize objetivos, compras e projetos sem depender apenas do que sobra no fim do mês.</p>
                     </div>
                 </div>
 
                 <div class="benefit-item">
                     <div class="benefit-icon">✓</div>
                     <div class="benefit-text">
-                        <h3>100% gratuita</h3>
-                        <p>Sem custos, sem compromissos. Apenas educação financeira Haut</p>
+                        <h3>Comece mesmo sem entender de finanças</h3>
+                        <p>A planilha foi criada para tornar o controle financeiro mais simples e ajudar você a dar o primeiro passo.</p>
                     </div>
                 </div>
             </div>
@@ -490,8 +535,8 @@
             <div class="form-section">
                 <form id="leadForm">
                     <div class="form-header">
-                        <h3>Receba a planilha agora</h3>
-                        <p>Preencha os dados abaixo para começar</p>
+                        <h3>Baixe sua planilha gratuita</h3>
+                        <p>Conte para a gente o que você quer organizar e receba a planilha para começar.</p>
                     </div>
 
                     <div class="form-group">
@@ -510,21 +555,31 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="challenge">Qual é seu principal desafio financeiro? *</label>
-                        <select id="challenge" name="challenge" required>
+                        <label>Você quer organizar as finanças de: *</label>
+                        <div class="persona-toggle">
+                            <label class="persona-card">
+                                <input type="radio" name="persona" value="pessoal" required>
+                                <span class="persona-card-inner">Minha vida pessoal</span>
+                            </label>
+                            <label class="persona-card">
+                                <input type="radio" name="persona" value="empresa" required>
+                                <span class="persona-card-inner">Minha empresa</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="challengeGroup" hidden>
+                        <label id="challengeLabel" for="challenge">Hoje, o que mais dificulta sua organização financeira? *</label>
+                        <select id="challenge" name="challenge">
                             <option value="">Selecione uma opção</option>
-                            <option value="organizar_gastos">Organizar meus gastos</option>
-                            <option value="reserva_emergencia">Criar uma reserva de emergência</option>
-                            <option value="compras_grandes">Planejar compras grandes</option>
-                            <option value="nao_sei">Não sei por onde começar</option>
                         </select>
                     </div>
 
-                    <button type="submit" class="submit-btn">Receber a planilha grátis</button>
+                    <button type="submit" class="submit-btn">Quero receber minha planilha</button>
 
                     <div class="success-message" id="successMessage">
-                        <h4>Muito obrigada! 🎉</h4>
-                        <p>Parabéns por dar esse primeiro passo importante. Nossa equipe vai entrar em contato com você em breve via WhatsApp para enviar sua <strong>planilha gratuita de controle de gastos</strong>.<br><br>Fique atenta ao seu celular!</p>
+                        <h4>Prontinho! 🎉</h4>
+                        <p>Nossa equipe vai entrar em contato com você em breve via WhatsApp para enviar sua <strong>planilha gratuita de controle financeiro</strong>.<br><br>Fique de olho no celular!</p>
                     </div>
                 </form>
             </div>
@@ -543,8 +598,8 @@
 
         <div class="container">
             <div class="pillars-header">
-                <h2>4 pilares para uma vida financeira saudável</h2>
-                <p>Seja para o seu negócio ou para o seu bolso, esses são os pontos que a planilha Haut te ajuda a colocar em prática.</p>
+                <h2>4 pontos essenciais para organizar suas finanças</h2>
+                <p>Seja na vida pessoal ou na empresa, uma boa organização começa por entender o presente e planejar os próximos passos.</p>
             </div>
 
             <div class="pillars-grid">
@@ -552,40 +607,40 @@
                     <div class="pillar-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="4" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="20" y1="20" x2="20" y2="14"/></svg>
                     </div>
-                    <h3>Controle de Gastos</h3>
-                    <p>Registre entradas e saídas e saiba exatamente para onde vai cada real</p>
+                    <h3>Controle de entradas e despesas</h3>
+                    <p>Saiba quanto entra, quanto sai e onde seu dinheiro está sendo utilizado.</p>
                 </div>
 
                 <div class="pillar-item">
                     <div class="pillar-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
                     </div>
-                    <h3>Reserva de Emergência</h3>
-                    <p>Construa um colchão financeiro para imprevistos, na empresa ou na vida pessoal</p>
+                    <h3>Reserva e segurança financeira</h3>
+                    <p>Prepare-se melhor para imprevistos e reduza decisões tomadas no susto.</p>
                 </div>
 
                 <div class="pillar-item">
                     <div class="pillar-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
                     </div>
-                    <h3>Metas e Objetivos</h3>
-                    <p>Defina metas claras e acompanhe sua evolução até alcançá-las</p>
+                    <h3>Metas e planejamento</h3>
+                    <p>Transforme planos e objetivos em números que você consegue acompanhar.</p>
                 </div>
 
                 <div class="pillar-item">
                     <div class="pillar-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"/></svg>
                     </div>
-                    <h3>Educação Financeira</h3>
-                    <p>Aprenda a tomar decisões mais conscientes com o seu dinheiro</p>
+                    <h3>Decisões mais conscientes</h3>
+                    <p>Use suas próprias informações para decidir melhor o que gastar, guardar ou planejar.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <div class="footer-cta">
-        <h3>Educação financeira começa aqui</h3>
-        <p>Controle seus gastos, planeje seu futuro, alcance seus sonhos</p>
+        <h3>Organizar é o primeiro passo para planejar melhor.</h3>
+        <p>Comece entendendo seus números hoje para tomar decisões mais conscientes amanhã.</p>
     </div>
 
     <footer class="brand-footer">
@@ -594,6 +649,48 @@
     </footer>
 
     <script>
+        const challengeOptionsByPersona = {
+            pessoal: {
+                label: 'Hoje, o que mais dificulta sua organização financeira? *',
+                options: [
+                    'Não sei para onde meu dinheiro está indo',
+                    'Tenho dificuldade para controlar meus gastos',
+                    'Quero começar a me organizar, mas não sei por onde',
+                    'Quero criar uma reserva de emergência',
+                    'Quero me planejar para uma compra ou objetivo',
+                    'Quero organizar dívidas e compromissos financeiros'
+                ]
+            },
+            empresa: {
+                label: 'Hoje, qual é o principal desafio financeiro da sua empresa? *',
+                options: [
+                    'Não tenho clareza sobre entradas e despesas',
+                    'Tenho dificuldade para controlar os gastos da empresa',
+                    'Misturo as finanças pessoais com as da empresa',
+                    'Quero melhorar meu planejamento financeiro',
+                    'Preciso me organizar para investir ou expandir',
+                    'Não sei por onde começar a organizar as finanças'
+                ]
+            }
+        };
+
+        const challengeGroup = document.getElementById('challengeGroup');
+        const challengeLabel = document.getElementById('challengeLabel');
+        const challengeSelect = document.getElementById('challenge');
+
+        document.querySelectorAll('input[name="persona"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                const config = challengeOptionsByPersona[this.value];
+                challengeLabel.textContent = config.label;
+                challengeSelect.innerHTML = '<option value="">Selecione uma opção</option>' +
+                    config.options.map(function(opt) {
+                        return '<option value="' + opt + '">' + opt + '</option>';
+                    }).join('');
+                challengeSelect.required = true;
+                challengeGroup.hidden = false;
+            });
+        });
+
         document.getElementById('leadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -601,6 +698,7 @@
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 whatsapp: document.getElementById('whatsapp').value,
+                persona: (document.querySelector('input[name="persona"]:checked') || {}).value || '',
                 challenge: document.getElementById('challenge').value,
                 timestamp: new Date().toLocaleString('pt-BR')
             };
