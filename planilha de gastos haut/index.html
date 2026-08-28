@@ -7,6 +7,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!--
+        Google Analytics 4 (GA4)
+        Para ativar: remova os comentários abaixo e troque G-XXXXXXXXXX
+        pelo Measurement ID real da propriedade GA4 da Haut.
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+
+    <!--
+        Microsoft Clarity
+        Para ativar: remova os comentários abaixo e troque CLARITY_PROJECT_ID
+        pelo ID real do projeto Clarity.
+
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
+    </script>
+    -->
+
     <style>
         * {
             margin: 0;
@@ -23,6 +52,10 @@
             --cream: #F5F3D8;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #f5f5f5;
@@ -32,9 +65,32 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1080px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* ---------- Scroll reveal ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: none;
+        }
+
+        .reveal-side {
+            opacity: 0;
+            transform: translateX(28px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-side.in-view {
+            opacity: 1;
+            transform: none;
         }
 
         /* ---------- Decorative triangle motif ---------- */
@@ -49,115 +105,234 @@
         .corner-deco.top-left { top: 0; left: 0; }
         .corner-deco.bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
 
-        /* ---------- Header ---------- */
-        header {
+        /* ---------- Hero ---------- */
+        header.hero {
             position: relative;
             background: linear-gradient(135deg, var(--navy) 0%, var(--green-dark) 100%);
             padding: 50px 20px 60px;
             color: white;
-            text-align: center;
             overflow: hidden;
         }
 
+        .hero-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 40px;
+            align-items: center;
+        }
+
         .logo-img {
-            height: 56px;
-            margin-bottom: 36px;
+            height: 48px;
+            margin-bottom: 30px;
         }
 
         h1 {
-            position: relative;
-            font-size: 52px;
+            font-size: 44px;
             font-weight: 800;
             margin-bottom: 18px;
-            line-height: 1.15;
-            z-index: 2;
+            line-height: 1.18;
         }
 
         .subtitle {
-            position: relative;
-            font-size: 18px;
+            font-size: 17px;
             opacity: 0.95;
-            max-width: 620px;
-            margin: 0 auto;
             font-weight: 300;
-            z-index: 2;
+            max-width: 520px;
+        }
+
+        .subtitle strong {
+            font-weight: 700;
         }
 
         .badge-row {
-            position: relative;
             display: flex;
-            justify-content: center;
-            gap: 14px;
-            margin-top: 28px;
+            gap: 10px;
+            margin-top: 26px;
             flex-wrap: wrap;
-            z-index: 2;
         }
 
         .badge {
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 8px 16px;
+            padding: 7px 14px;
             border-radius: 999px;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 500;
+            white-space: nowrap;
         }
 
-        /* ---------- Content ---------- */
-        .content-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            margin: 70px 0;
-        }
-
-        .benefits h2 {
-            font-size: 28px;
-            color: var(--navy);
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-
-        .benefit-item {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .benefit-item:last-child {
-            border-bottom: none;
-        }
-
-        .benefit-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--green-light);
-            border-radius: 50%;
+        /* ---------- Hero visual ---------- */
+        .hero-visual {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-            color: var(--green-dark);
-            font-weight: bold;
         }
 
-        .benefit-text h3 {
+        .hero-image-shape {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            aspect-ratio: 1 / 1;
+            border-radius: 63% 37% 54% 46% / 55% 45% 55% 45%;
+            background: linear-gradient(160deg, rgba(255,255,255,0.16), rgba(175,208,110,0.35));
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .hero-image-shape svg {
+            width: 78%;
+            height: 78%;
+        }
+
+        .floating-chip {
+            position: absolute;
+            background: white;
             color: var(--navy);
-            font-size: 16px;
-            margin-bottom: 6px;
-            font-weight: 600;
+            border-radius: 999px;
+            padding: 9px 16px;
+            font-size: 12.5px;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            top: 8%;
+            right: -4%;
         }
 
-        .benefit-text p {
+        .floating-chip::before {
+            content: '✓';
+            color: var(--green-dark);
+            font-weight: 800;
+        }
+
+        .floating-card {
+            position: absolute;
+            bottom: 4%;
+            left: -8%;
+            background: white;
+            border-radius: 12px;
+            padding: 12px 14px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+            width: 148px;
+        }
+
+        .floating-card .fc-label {
+            font-size: 10.5px;
+            color: #888;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .floating-card .fc-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            height: 34px;
+        }
+
+        .floating-card .fc-bars span {
+            display: block;
+            flex: 1;
+            border-radius: 3px 3px 0 0;
+            background: var(--green-light);
+        }
+
+        .floating-card .fc-bars span:nth-child(1) { height: 55%; background: var(--blue-accent); }
+        .floating-card .fc-bars span:nth-child(2) { height: 85%; }
+        .floating-card .fc-bars span:nth-child(3) { height: 40%; background: var(--blue-accent); }
+        .floating-card .fc-bars span:nth-child(4) { height: 70%; }
+
+        /* ---------- Benefits / Accordion ---------- */
+        .benefits-section {
+            padding: 60px 0 20px;
+        }
+
+        .benefits-section h2 {
+            font-size: 28px;
+            color: var(--navy);
+            margin-bottom: 28px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .accordion {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .accordion-trigger {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: none;
+            border: none;
+            padding: 22px 4px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy);
+            font-family: inherit;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .accordion-icon {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--green-light);
+            color: var(--green-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(135deg);
+        }
+
+        .accordion-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+
+        .accordion-item.open .accordion-panel {
+            max-height: 200px;
+        }
+
+        .accordion-panel-inner {
+            padding: 0 4px 22px;
             color: #666;
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        /* ---------- Form section ---------- */
+        .form-section-block {
+            padding: 50px 0 70px;
         }
 
         .form-section {
+            max-width: 560px;
+            margin: 0 auto;
             background: white;
             padding: 40px;
             border-radius: 16px;
@@ -166,6 +341,7 @@
 
         .form-header {
             margin-bottom: 30px;
+            text-align: center;
         }
 
         .form-header h3 {
@@ -244,6 +420,7 @@
         }
 
         .persona-card-inner {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -251,17 +428,39 @@
             height: 100%;
             padding: 16px 12px;
             border: 1.5px solid #ddd;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
             color: var(--navy);
-            transition: all 0.2s;
+            transform: scale(1);
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+        }
+
+        .persona-check {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--green-dark);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
         }
 
         .persona-card input:checked + .persona-card-inner {
             border-color: var(--green-dark);
             background: rgba(175, 208, 110, 0.15);
             color: var(--green-dark);
+            transform: scale(1.02);
+        }
+
+        .persona-card input:checked + .persona-card-inner .persona-check {
+            display: flex;
         }
 
         .persona-card input:focus-visible + .persona-card-inner {
@@ -279,7 +478,7 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
             margin-top: 10px;
             font-family: inherit;
         }
@@ -290,7 +489,8 @@
         }
 
         .submit-btn:active {
-            transform: translateY(0);
+            transform: translateY(0) scale(0.98);
+            filter: brightness(0.97);
         }
 
         .success-message {
@@ -320,157 +520,186 @@
             line-height: 1.6;
         }
 
-        /* ---------- Pillars (dark section) ---------- */
-        .pillars {
-            position: relative;
-            background: var(--navy);
-            padding: 70px 20px;
-            color: white;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .pillars .container {
-            position: relative;
-            z-index: 2;
-        }
-
-        .pillars-header {
-            text-align: center;
-            max-width: 640px;
-            margin: 0 auto 50px;
-        }
-
-        .pillars-header h2 {
-            font-size: 30px;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        .pillars-header p {
-            font-size: 15px;
-            opacity: 0.85;
-            font-weight: 300;
-        }
-
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-        }
-
-        .pillar-item {
-            text-align: center;
-        }
-
-        .pillar-icon {
-            width: 68px;
-            height: 68px;
-            margin: 0 auto 16px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1.5px solid rgba(175, 208, 110, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .pillar-icon svg {
-            width: 30px;
-            height: 30px;
-            stroke: var(--green-light);
-        }
-
-        .pillar-item h3 {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--green-light);
-        }
-
-        .pillar-item p {
-            font-size: 13px;
-            opacity: 0.8;
-            line-height: 1.5;
-        }
-
-        /* ---------- Footer CTA ---------- */
+        /* ---------- Footer ---------- */
         .footer-cta {
             background: var(--cream);
-            padding: 50px 20px;
+            padding: 40px 20px;
             text-align: center;
         }
 
         .footer-cta h3 {
             color: var(--navy);
             font-size: 20px;
-            margin-bottom: 12px;
             font-weight: 700;
-        }
-
-        .footer-cta p {
-            color: #666;
-            font-size: 14px;
         }
 
         footer.brand-footer {
             background: var(--navy-dark);
-            padding: 28px 20px;
+            padding: 32px 20px;
             text-align: center;
         }
 
         footer.brand-footer img {
-            height: 26px;
+            height: 24px;
             opacity: 0.85;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
         }
 
-        footer.brand-footer p {
-            color: rgba(255, 255, 255, 0.5);
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            font-size: 13px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--green-light);
+            text-decoration: underline;
+        }
+
+        .footer-links span {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .lgpd-note {
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 11.5px;
+            max-width: 520px;
+            margin: 0 auto 14px;
+            line-height: 1.6;
+        }
+
+        .lgpd-note a {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        footer.brand-footer .copyright {
+            color: rgba(255, 255, 255, 0.4);
             font-size: 12px;
         }
 
-        @media (max-width: 768px) {
-            .content-wrapper {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                margin: 40px 0;
-            }
+        /* ---------- Cookie banner ---------- */
+        .cookie-banner {
+            position: fixed;
+            left: 16px;
+            right: 16px;
+            bottom: -120px;
+            max-width: 640px;
+            margin: 0 auto;
+            background: var(--navy);
+            color: white;
+            border-radius: 12px;
+            padding: 16px 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            z-index: 999;
+            transition: bottom 0.4s ease;
+        }
 
-            h1 {
-                font-size: 32px;
+        .cookie-banner.show {
+            bottom: 16px;
+        }
+
+        .cookie-banner p {
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.85);
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .cookie-banner a {
+            color: var(--green-light);
+        }
+
+        .cookie-banner button {
+            background: var(--green-light);
+            color: var(--navy-dark);
+            border: none;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: filter 0.2s ease;
+        }
+
+        .cookie-banner button:hover {
+            filter: brightness(1.08);
+        }
+
+        @media (max-width: 860px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
 
             .subtitle {
-                font-size: 16px;
+                max-width: 100%;
+                margin: 0 auto;
             }
 
-            .benefits h2 {
-                font-size: 24px;
+            .badge-row {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                margin-top: 30px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+
+            .benefits-section h2 {
+                font-size: 22px;
             }
 
             .form-section {
-                padding: 24px;
+                padding: 26px 22px;
             }
 
-            header {
-                padding: 40px 20px 50px;
+            header.hero {
+                padding: 36px 16px 44px;
             }
 
-            .pillars-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 30px 20px;
+            .badge {
+                font-size: 11px;
+                padding: 6px 11px;
             }
 
             .corner-deco {
                 width: 80px;
                 height: 80px;
             }
+
+            .hero-image-shape {
+                max-width: 240px;
+            }
+
+            .floating-card {
+                width: 120px;
+                padding: 10px 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header class="hero">
         <svg class="corner-deco top-left" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
             <polygon points="0,0 65,0 0,65" fill="#ffffff" opacity="0.12"/>
             <polygon points="65,0 130,0 130,65" fill="#AFD06E" opacity="0.5"/>
@@ -482,57 +711,99 @@
             <polygon points="0,65 65,65 0,130" fill="#AFD06E" opacity="0.3"/>
         </svg>
 
-        <div class="container">
-            <img class="logo-img" src="assets/logo-haut-branco.png" alt="Haut Consórcios">
-            <h1>Entenda para onde seu dinheiro está indo. E comece a se organizar.</h1>
-            <p class="subtitle">Baixe gratuitamente a planilha de controle financeiro da Haut para organizar receitas, despesas e metas da sua vida pessoal ou da sua empresa.</p>
-            <div class="badge-row">
-                <span class="badge">100% gratuita</span>
-                <span class="badge">Para você ou sua empresa</span>
-                <span class="badge">Pronta para usar</span>
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <img class="logo-img" src="assets/logo-haut-branco.png" alt="Haut Consórcios">
+                <h1>Entenda para onde seu dinheiro está indo. E comece a se organizar.</h1>
+                <p class="subtitle"><strong>Baixe gratuitamente a planilha de controle financeiro da Haut</strong> para organizar receitas, despesas e metas da sua vida pessoal ou da sua empresa.</p>
+                <div class="badge-row">
+                    <span class="badge">100% gratuita</span>
+                    <span class="badge">Para você ou sua empresa</span>
+                    <span class="badge">Pronta para usar</span>
+                </div>
+            </div>
+
+            <div class="hero-visual reveal-side">
+                <div class="hero-image-shape">
+                    <!-- Ilustração provisória: substitua por uma foto real da pessoa (ver assets/hero-pessoa.jpg) -->
+                    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="150" cy="255" rx="90" ry="14" fill="rgba(20,29,71,0.15)"/>
+                        <rect x="70" y="150" width="160" height="95" rx="14" fill="#1D2A62"/>
+                        <rect x="82" y="163" width="136" height="68" rx="6" fill="#87AEEC"/>
+                        <rect x="92" y="173" width="60" height="6" rx="3" fill="#ffffff" opacity="0.85"/>
+                        <rect x="92" y="185" width="90" height="6" rx="3" fill="#ffffff" opacity="0.6"/>
+                        <rect x="92" y="197" width="45" height="6" rx="3" fill="#ffffff" opacity="0.6"/>
+                        <rect x="92" y="209" width="70" height="26" rx="4" fill="#AFD06E" opacity="0.85"/>
+                        <circle cx="150" cy="90" r="38" fill="#1D2A62"/>
+                        <circle cx="150" cy="82" r="26" fill="#f4d9bd"/>
+                        <path d="M124 74c0-16 12-28 26-28s26 12 26 28c-8-6-16-9-26-9s-18 3-26 9z" fill="#1D2A62"/>
+                        <rect x="108" y="118" width="84" height="58" rx="20" fill="#437118"/>
+                        <rect x="128" y="150" width="44" height="52" rx="14" fill="#1D2A62"/>
+                        <circle cx="150" cy="82" r="26" fill="none"/>
+                    </svg>
+                </div>
+                <div class="floating-chip">100% gratuita</div>
+                <div class="floating-card">
+                    <div class="fc-label">Gastos do mês</div>
+                    <div class="fc-bars">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="container">
-        <div class="content-wrapper">
-            <div class="benefits">
-                <h2>Por que usar a planilha?</h2>
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="reveal">Por que organizar suas finanças?</h2>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✓</div>
-                    <div class="benefit-text">
-                        <h3>Tenha todas as entradas e despesas em um só lugar</h3>
-                        <p>Registre o que entra, o que sai e entenda com mais clareza como seu dinheiro está sendo utilizado.</p>
+            <div class="accordion">
+                <div class="accordion-item reveal">
+                    <button class="accordion-trigger" type="button" aria-expanded="false">
+                        <span>Tenha clareza sobre o que entra e o que sai</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="accordion-panel-inner">Registre suas entradas e despesas em um só lugar e entenda para onde seu dinheiro está indo.</div>
                     </div>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✓</div>
-                    <div class="benefit-text">
-                        <h3>Saiba para onde seu dinheiro está indo</h3>
-                        <p>Acompanhe suas informações de forma visual e identifique os gastos que mais pesam no seu orçamento.</p>
+                <div class="accordion-item reveal">
+                    <button class="accordion-trigger" type="button" aria-expanded="false">
+                        <span>Planeje antes de gastar</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="accordion-panel-inner">Visualize melhor sua situação financeira e organize compras, projetos e próximos passos com mais segurança.</div>
                     </div>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✓</div>
-                    <div class="benefit-text">
-                        <h3>Defina metas e se planeje melhor</h3>
-                        <p>Organize objetivos, compras e projetos sem depender apenas do que sobra no fim do mês.</p>
+                <div class="accordion-item reveal">
+                    <button class="accordion-trigger" type="button" aria-expanded="false">
+                        <span>Crie metas que você consiga acompanhar</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="accordion-panel-inner">Defina objetivos financeiros e acompanhe sua evolução ao longo do tempo.</div>
                     </div>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✓</div>
-                    <div class="benefit-text">
-                        <h3>Comece mesmo sem entender de finanças</h3>
-                        <p>A planilha foi criada para tornar o controle financeiro mais simples e ajudar você a dar o primeiro passo.</p>
+                <div class="accordion-item reveal">
+                    <button class="accordion-trigger" type="button" aria-expanded="false">
+                        <span>Tome decisões com mais consciência</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="accordion-panel-inner">Use seus próprios números para entender o que precisa ajustar, economizar ou planejar.</div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="form-section">
+    <section class="form-section-block" id="planilha">
+        <div class="container">
+            <div class="form-section reveal">
                 <form id="leadForm">
                     <div class="form-header">
                         <h3>Baixe sua planilha gratuita</h3>
@@ -559,17 +830,23 @@
                         <div class="persona-toggle">
                             <label class="persona-card">
                                 <input type="radio" name="persona" value="pessoal" required>
-                                <span class="persona-card-inner">Minha vida pessoal</span>
+                                <span class="persona-card-inner">
+                                    <span class="persona-check">✓</span>
+                                    Minha vida pessoal
+                                </span>
                             </label>
                             <label class="persona-card">
                                 <input type="radio" name="persona" value="empresa" required>
-                                <span class="persona-card-inner">Minha empresa</span>
+                                <span class="persona-card-inner">
+                                    <span class="persona-check">✓</span>
+                                    Minha empresa
+                                </span>
                             </label>
                         </div>
                     </div>
 
                     <div class="form-group" id="challengeGroup" hidden>
-                        <label id="challengeLabel" for="challenge">Hoje, o que mais dificulta sua organização financeira? *</label>
+                        <label id="challengeLabel" for="challenge">Hoje, qual dessas situações mais combina com você?</label>
                         <select id="challenge" name="challenge">
                             <option value="">Selecione uma opção</option>
                         </select>
@@ -584,92 +861,90 @@
                 </form>
             </div>
         </div>
-    </div>
-
-    <section class="pillars">
-        <svg class="corner-deco top-left" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="0,0 65,0 0,65" fill="#ffffff" opacity="0.06"/>
-            <polygon points="65,0 130,0 130,65" fill="#AFD06E" opacity="0.35"/>
-        </svg>
-        <svg class="corner-deco bottom-right" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="0,0 65,0 0,65" fill="#ffffff" opacity="0.06"/>
-            <polygon points="65,0 130,0 130,65" fill="#AFD06E" opacity="0.35"/>
-        </svg>
-
-        <div class="container">
-            <div class="pillars-header">
-                <h2>4 pontos essenciais para organizar suas finanças</h2>
-                <p>Seja na vida pessoal ou na empresa, uma boa organização começa por entender o presente e planejar os próximos passos.</p>
-            </div>
-
-            <div class="pillars-grid">
-                <div class="pillar-item">
-                    <div class="pillar-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="4" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="20" y1="20" x2="20" y2="14"/></svg>
-                    </div>
-                    <h3>Controle de entradas e despesas</h3>
-                    <p>Saiba quanto entra, quanto sai e onde seu dinheiro está sendo utilizado.</p>
-                </div>
-
-                <div class="pillar-item">
-                    <div class="pillar-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
-                    </div>
-                    <h3>Reserva e segurança financeira</h3>
-                    <p>Prepare-se melhor para imprevistos e reduza decisões tomadas no susto.</p>
-                </div>
-
-                <div class="pillar-item">
-                    <div class="pillar-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
-                    </div>
-                    <h3>Metas e planejamento</h3>
-                    <p>Transforme planos e objetivos em números que você consegue acompanhar.</p>
-                </div>
-
-                <div class="pillar-item">
-                    <div class="pillar-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"/></svg>
-                    </div>
-                    <h3>Decisões mais conscientes</h3>
-                    <p>Use suas próprias informações para decidir melhor o que gastar, guardar ou planejar.</p>
-                </div>
-            </div>
-        </div>
     </section>
 
     <div class="footer-cta">
         <h3>Organizar é o primeiro passo para planejar melhor.</h3>
-        <p>Comece entendendo seus números hoje para tomar decisões mais conscientes amanhã.</p>
     </div>
 
     <footer class="brand-footer">
-        <img src="assets/logo-haut-branco.png" alt="Haut Consórcios">
-        <p>&copy; 2026 Haut Consórcios. Todos os direitos reservados.</p>
+        <div class="container">
+            <img src="assets/logo-haut-branco.png" alt="Haut Consórcios">
+            <div class="footer-links">
+                <a href="privacidade.html">Política de Privacidade</a>
+                <span>·</span>
+                <a href="termos.html">Termos de Uso</a>
+            </div>
+            <p class="lgpd-note">Ao enviar seus dados, você concorda com o tratamento das informações conforme nossa <a href="privacidade.html">Política de Privacidade</a> e a Lei Geral de Proteção de Dados (LGPD).</p>
+            <p class="copyright">&copy; 2026 Haut Consórcios. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite">
+        <p>Usamos cookies e ferramentas de análise (Google Analytics e Microsoft Clarity) para entender como você usa o site. <a href="privacidade.html">Saiba mais</a>.</p>
+        <button type="button" id="cookieAccept">Entendi</button>
+    </div>
+
     <script>
+        // ---------- Cookie banner ----------
+        (function () {
+            var KEY = 'haut_cookie_consent';
+            var banner = document.getElementById('cookieBanner');
+            if (!localStorage.getItem(KEY)) {
+                setTimeout(function () { banner.classList.add('show'); }, 800);
+            }
+            document.getElementById('cookieAccept').addEventListener('click', function () {
+                localStorage.setItem(KEY, '1');
+                banner.classList.remove('show');
+            });
+        })();
+
+        // ---------- Scroll reveal ----------
+        (function () {
+            var els = document.querySelectorAll('.reveal, .reveal-side');
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            els.forEach(function (el) { io.observe(el); });
+        })();
+
+        // ---------- Accordion ----------
+        document.querySelectorAll('.accordion-trigger').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = btn.closest('.accordion-item');
+                var isOpen = item.classList.contains('open');
+                document.querySelectorAll('.accordion-item').forEach(function (i) {
+                    i.classList.remove('open');
+                    i.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    item.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // ---------- Dynamic challenge question ----------
         const challengeOptionsByPersona = {
             pessoal: {
-                label: 'Hoje, o que mais dificulta sua organização financeira? *',
+                label: 'Hoje, qual dessas situações mais combina com você?',
                 options: [
                     'Não sei para onde meu dinheiro está indo',
-                    'Tenho dificuldade para controlar meus gastos',
-                    'Quero começar a me organizar, mas não sei por onde',
-                    'Quero criar uma reserva de emergência',
-                    'Quero me planejar para uma compra ou objetivo',
-                    'Quero organizar dívidas e compromissos financeiros'
+                    'Quero me organizar, mas não sei por onde começar',
+                    'Quero me planejar para uma meta ou compra'
                 ]
             },
             empresa: {
-                label: 'Hoje, qual é o principal desafio financeiro da sua empresa? *',
+                label: 'Hoje, qual dessas situações mais combina com sua empresa?',
                 options: [
                     'Não tenho clareza sobre entradas e despesas',
-                    'Tenho dificuldade para controlar os gastos da empresa',
                     'Misturo as finanças pessoais com as da empresa',
-                    'Quero melhorar meu planejamento financeiro',
-                    'Preciso me organizar para investir ou expandir',
-                    'Não sei por onde começar a organizar as finanças'
+                    'Quero me organizar para investir ou crescer'
                 ]
             }
         };
@@ -678,12 +953,12 @@
         const challengeLabel = document.getElementById('challengeLabel');
         const challengeSelect = document.getElementById('challenge');
 
-        document.querySelectorAll('input[name="persona"]').forEach(function(radio) {
-            radio.addEventListener('change', function() {
+        document.querySelectorAll('input[name="persona"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
                 const config = challengeOptionsByPersona[this.value];
                 challengeLabel.textContent = config.label;
                 challengeSelect.innerHTML = '<option value="">Selecione uma opção</option>' +
-                    config.options.map(function(opt) {
+                    config.options.map(function (opt) {
                         return '<option value="' + opt + '">' + opt + '</option>';
                     }).join('');
                 challengeSelect.required = true;
@@ -691,7 +966,8 @@
             });
         });
 
-        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+        // ---------- Form submit ----------
+        document.getElementById('leadForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const formData = {
@@ -756,7 +1032,7 @@
         });
 
         // Formatar WhatsApp automaticamente
-        document.getElementById('whatsapp').addEventListener('input', function(e) {
+        document.getElementById('whatsapp').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 0) {
                 if (value.length <= 2) {
